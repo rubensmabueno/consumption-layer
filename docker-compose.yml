@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  hive:
+    image: rubensminoru/hive
+    command: /opt/hive/bin/hive --service hiveserver2
+    volumes:
+    - ./config/core-site.xml:/opt/hive/conf/core-site.xml
+    ports:
+    - 10000:10000
+    - 10002:10002
+    depends_on:
+      metastore:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "nc", "-w", "1", "localhost", "10002"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  metastore:
+    image: rubensminoru/hive
+    command: /opt/hive/bin/hive --service metastore
+    volumes:
+    - ./config/core-site.xml:/opt/hive/conf/core-site.xml
+    ports:
+    - 9083:9083
+    - 5556:5556
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "nc", "-w", "1", "localhost", "9083"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  postgresql:
+    image: postgres:9.5
+    volumes:
+    - "./tmp/postgres:/var/lib/postgresql/data"
+    ports:
+    - 5432:5432
+    environment:
+    - POSTGRES_PASSWORD=hive
+    - POSTGRES_USER=hive
+    - POSTGRES_DB=metastore
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "metastore" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  localstack:
+    image: localstack/localstack:0.14
+    environment:
+      - SERVICES=s3
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - "4566:4566"
+      - "4567:4567"
+    volumes:
+      - "./tmp/localstack:/tmp/localstack/data"
+      - '/var/run/docker.sock:/var/run/docker.sock'
