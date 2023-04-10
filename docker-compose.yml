@@ -59,3 +59,49 @@ services:
     volumes:
       - "./tmp/localstack:/tmp/localstack/data"
       - '/var/run/docker.sock:/var/run/docker.sock'
+  coordinator:
+    image: rubensminoru/presto
+    ports:
+      - "8081:8080"
+    volumes:
+      - "./config/coordinator.properties:/etc/presto/config.properties"
+      - "./config/catalog:/etc/presto/catalog"
+      - "./config/jvm.config:/opt/presto/etc/jvm.config"
+      - "./tmp/coordinator/data:/data"
+      - "./tmp/coordinator/worker:/presto"
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8080/v1/info" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      metastore:
+        condition: service_healthy
+  workers:
+    image: rubensminoru/presto
+    volumes:
+      - "./config/worker.properties:/etc/presto/config.properties"
+      - "./config/catalog:/etc/presto/catalog"
+      - "./config/jvm.config:/opt/presto/etc/jvm.config"
+      - "./tmp/workers/data:/data"
+      - "./tmp/workers/worker:/presto"
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8080/v1/info" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      coordinator:
+        condition: service_healthy
+  hue:
+    image: gethue/hue:latest
+    ports:
+      - "8888:8888"
+    depends_on:
+      coordinator:
+        condition: service_healthy
+      hive:
+        condition: service_healthy
+    volumes:
+      - "./config/hue/z-hue-overrides.ini:/usr/share/hue/desktop/conf/z-hue.ini"
+      - "./config/hue/log.conf:/etc/hue/conf/log.conf"
