@@ -1,5 +1,5 @@
 # Data Platform Consumption Layer
-This repository provides a Docker Compose-based implementation of the Data Platform consumption layer as described in the article [Data Platform - Solution for Consumption (Part 2)](https://rubensminoru.medium.com/data-platform-solution-for-consumption-part-2-3019c5832266).
+This repository provides a Docker Compose-based implementation of the Data Platform consumption layer as described in the article [Data Platform - Solution for Consumption (Part 2)](https://rubensminoru.medium.com/data-platform-solution-for-consumption-part-2-3019c5832266).
 
 The consumption layer includes components for data persistence, storage, cataloging, and processing, which together address the challenges faced by traditional commercial Data Warehouse solutions, such as limited scalability and tightly coupled architecture as mentioned in this article [Data Platform — The Challenges (Part 1)](https://medium.com/@rubensminoru/data-platform-the-challenges-part-1-7bd86657e273).
 
@@ -7,7 +7,7 @@ The consumption layer includes components for data persistence, storage, catalog
 The architecture of this Data Platform consumption layer consists of the following components:
 
 - Permanent Memory: Object Storage (S3)
-- Storage Engine: ORC columnar format
+- Storage Engine: Parquet columnar format
 - Catalog Manager: Hive Metastore
 - Computation Engine: PrestoDB and Hive
 
