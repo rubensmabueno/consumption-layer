@@ -32,20 +32,21 @@ The Docker Compose configuration includes the following services:
 5. PrestoDB Coordinator
 6. PrestoDB Workers
 7. Hue
-For detailed information on each service, please refer to the [technical documentation](https://github.com/rubensmabueno/consumption-layer/edit/main/TECHNICAL.md).
+
+For detailed information on each service, please refer to the [technical documentation](https://github.com/rubensmabueno/consumption-layer/blob/main/TECHNICAL.md).
 
 ### Usage
 Once all services are up and running, you can access the different components of the Data Platform consumption layer using their respective ports and tools:
 
-- Hive: Connect to HiveServer2 on port 10000
-- Metastore: Connect to the Hive metastore on port 9083
-- PostgreSQL: Connect to the PostgreSQL database on port 5432
-- LocalStack: Access S3 storage on port 4566
-- Coordinator: Access the PrestoDB coordinator on port 8081
-- Hue: Access the Hue web interface on port 8888
+- *Hive*: Connect to HiveServer2 on port 10000
+- *Metastore*: Connect to the Hive metastore on port 9083
+- *PostgreSQL*: Connect to the PostgreSQL database on port 5432
+- *LocalStack*: Access S3 storage on port 4566
+- *PrestoDB*: Access the PrestoDB coordinator on port 8081
+- *Hue*: Access the Hue web interface on port 8888
 
 ## Contributing
-Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
+Please read [CONTRIBUTING.md](https://github.com/rubensmabueno/consumption-layer/blob/main/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/rubensmabueno/consumption-layer/edit/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/rubensmabueno/consumption-layer/blob/main/LICENSE) file for details.
