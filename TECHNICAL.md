@@ -2,13 +2,13 @@
 This document provides a more in-depth technical explanation of the services used in the Data Platform's consumption layer, their configurations, and how to customize them.
 
 ## Table of Contents
-- [Services](#Services)
-  - [Hive Metastore](#Hive Metastore)
-  - [Hive Server](#Hive Server)
-  - [PrestoDB](#PrestoDB)
-    - [Coordinator](#Coordinator)
-    - [Worker](#Worker)
-  - [LocalStack](#LocalStack)
+- [Services](#services)
+  - [Hive Metastore](#hive-metastore)
+  - [Hive Server](#hive-server)
+  - [PrestoDB](#prestodb)
+    - [Coordinator](#coordinator)
+    - [Worker](#worker)
+  - [LocalStack](#localstack)
 
 ## Services
 ### Hive Metastore
@@ -27,7 +27,7 @@ The Hive Server service is configured using a mapped volume containing the `core
 - `hadoop.proxyuser.hue.groups`: Specifies the groups to which the specified proxy user belongs.
 - `fs.defaultFS`: The default FileSystem implementation. Leave it empty if not required.
 - `fs.s3a.impl`: Sets the FileSystem implementation for S3.
-- `fs.s3a.endpoint`: Sets the S3 endpoint URL for the S3A connector. Set it to http://localstack:4566 for connecting to LocalStack.
+- `fs.s3a.endpoint`: Sets the S3 endpoint URL for the S3A connector. Set it to `http://localstack:4566` for connecting to LocalStack.
 - `fs.s3a.access.key`: Sets the S3 access key.
 - `fs.s3a.secret.key`: Sets the S3 secret key.
 - `fs.s3a.path.style.access`: Enables or disables path-style access for the S3A connector. Set it to true for compatibility with LocalStack.
@@ -66,7 +66,7 @@ The `catalog/hive.properties` file contains configuration to connect to Hive Met
 - `hive.metastore.uri`: The URI for the Hive Metastore service (e.g., thrift://metastore:9083).
 - `hive.s3.aws-access-key`: Sets the AWS access key for S3.
 - `hive.s3.aws-secret-key`: Sets the AWS secret key for S3.
-- `hive.s3.endpoint`: Sets the S3 endpoint URL for the connector. Set it to http://localstack:4566 for connecting to LocalStack.
+- `hive.s3.endpoint`: Sets the S3 endpoint URL for the connector. Set it to `http://localstack:4566` for connecting to LocalStack.
 - `hive.s3.path-style-access`: Enables or disables path-style access for the connector. Set it to true for compatibility with LocalStack.
 - `hive.parquet.use-column-names`: Determines whether to use column names when accessing Parquet files.
 
@@ -80,10 +80,10 @@ For more detailed documentation, please refer to the [LocalStack documentation](
 ## Configuration
 To customize the configurations, you can edit the corresponding configuration files and map the edited files to the appropriate container volumes. The main configuration files for each service are as follows:
 
-- *Hive Server*: core-site.xml
-- *PrestoDB Coordinator*: coordinator.properties
-- *PrestoDB Worker*: worker.properties
-- *PrestoDB Hive Connector*: hive.properties
+- **Hive Server**: core-site.xml
+- **PrestoDB Coordinator**: coordinator.properties
+- **PrestoDB Worker**: worker.properties
+- **PrestoDB Hive Connector**: hive.properties
 
 Remember to restart the services after making changes to the configuration files for the changes to take effect.
 
