@@ -4,11 +4,9 @@ PrestoDB and the Parquet format. We will use a Python script to create a sample 
 and then query the data using PrestoDB and Hive Server.
 
 ## Prerequisites
-Set up the Data Platform consumption layer using the provided Docker Compose configuration.
-
-- Python 3
-
-Install the required Python packages:
+1. Set up the Data Platform consumption layer using the provided Docker Compose configuration. Follow steps described [here](https://github.com/rubensmabueno/consumption-layer/blob/main/README.md#setup).
+2. Install Python 3
+3. Install the required Python packages:
 
 ```bash
 pip install -r requirements.txt
@@ -30,7 +28,7 @@ data = {
 df = pd.DataFrame(data)
 
 # Save dataframe to buffer in Parquet format
-df.to_orc("s3://datalake/example/records.orc", storage_options={'endpoint_url': 'http://localhost:4566'})
+df.to_parquet("s3://datalake/example/records.parquet", storage_options={'endpoint_url': 'http://localhost:4566'})
 ```
 
 ## Step 2: Create new table on Hive Metastore
@@ -88,6 +86,6 @@ for row in results:
     print(row)
 ```
 
-The complete Python script for this tutorial can be found [here](https://github.com/rubensmabueno/consumption-layer/edit/main/tutorials/consumption-layer-tutorial.py).
+The complete Python script for this tutorial can be found [here](https://github.com/rubensmabueno/consumption-layer/blob/main/tutorials/consumption-layer-tutorial.py).
 
 This tutorial shows how the consumption layer of the Data Platform allows for the flexible storage and retrieval of data, allowing users to take advantage of the benefits of the Parquet format and powerful querying capabilities of PrestoDB and Hive Server.
